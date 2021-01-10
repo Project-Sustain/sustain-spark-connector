@@ -45,19 +45,21 @@ object SustainConnector {
       .getOrCreate()
 
     import sparkConnector.implicits._ // For the $()-referenced columns
+    println(">>>> Hello World! <<<<")
 
     //val readConfig: ReadConfig = ReadConfig(Map("uri" -> "mongodb://127.0.0.1/",
     //                                            "database" -> "sustain", 
     //                                            "collection" -> "hospitals_geo"))
 
     // Read collection into a DataFrame
-    var df: DataFrame = MongoSpark.load(sparkConnector)
+    //var df: DataFrame = MongoSpark.load(sparkConnector)
    
     /* Tutorial used from the link below for linear regression modeling:
      * https://medium.com/@awabmohammedomer/how-to-fit-a-linear-regression-model-in-apache-spark-using-scala-f246dd06a3b1
      */
     
     // Select columns and rename them to appropriate labels
+    /*
     df = df.select($"_id", $"properties"("POPULATION"), $"properties"("BEDS"))
       .withColumnRenamed("properties.BEDS", "label")
       .withColumnRenamed("properties.POPULATION", "POPULATION")
@@ -82,7 +84,7 @@ object SustainConnector {
     var lrPredictions: DataFrame = lrModel.transform(test)
     val evaluator: RegressionEvaluator = new RegressionEvaluator().setMetricName("rmse")
     println(">>> TEST SET RMSE: " + evaluator.evaluate(lrPredictions))
-
+    */
     // Stop the underlying SparkContext to avoid garbage collection errors
     sparkConnector.stop()
   }
